@@ -14,5 +14,6 @@ python3 -m http.server "$PORT" --bind 127.0.0.1 >/tmp/prototype-pressiat.log 2>&
 SERVER_PID=$!
 trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT INT TERM
 sleep 1
-open "http://127.0.0.1:$PORT/index.html#landing"
+CACHE_BUSTER=$(date +%s)
+open "http://127.0.0.1:$PORT/index.html?v=$CACHE_BUSTER#landing"
 wait "$SERVER_PID"
